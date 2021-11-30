@@ -4,7 +4,7 @@ A ubuntu:20.04 container image with yanglint and yanglib installed
 To check a yang module located at $(pwd)/yang/awesome-app.yang
 
 ```bash
-docker run --rm -it -v $(pwd):/work hellt/yanglint yang/awesome-app.yang
+docker run --rm -it -v $(pwd):/work ghcr.io/hellt/yanglint yang/awesome-app.yang
 ```
 
 If the schema is correct, the non-0 return code is returned.
