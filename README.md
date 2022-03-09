@@ -7,4 +7,4 @@ To check a yang module located at $(pwd)/yang/awesome-app.yang
 docker run --rm -it -v $(pwd):/work ghcr.io/hellt/yanglint yang/awesome-app.yang
 ```
 
-If the schema is correct, the non-0 return code is returned.
+If the schema is incorrect, the non-0 return code is returned.
