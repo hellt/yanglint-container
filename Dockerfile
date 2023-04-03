@@ -1,10 +1,17 @@
-FROM ubuntu:20.04
+FROM python:3 as builder
 
-ARG LIBYANGVER=2.0.112
+ARG LIBYANGVER=2.1.55
 
-RUN apt update && apt -y install curl
-RUN curl -L https://github.com/CESNET/libyang/releases/download/v${LIBYANGVER}/libyang2_${LIBYANGVER}.1-1_amd64.deb > /tmp/libyang.deb && dpkg -i /tmp/libyang.deb
-RUN curl -L https://github.com/CESNET/libyang/releases/download/v${LIBYANGVER}/libyang2-tools_${LIBYANGVER}.1-1_amd64.deb > /tmp/libyang-tools.deb && dpkg -i /tmp/libyang-tools.deb
+RUN pip install apkg
+RUN apt update && apt -y install build-essential git
+RUN git clone https://github.com/CESNET/libyang.git
+WORKDIR /libyang
+RUN git checkout v${LIBYANGVER} && apkg build -i
 
+FROM ubuntu:22.04
+COPY --from=builder /libyang/pkg/pkgs/debian-11/libyang2_2.1.55-1/libyang2-tools_2.1.55-1_amd64.deb /tmp
+COPY --from=builder /libyang/pkg/pkgs/debian-11/libyang2_2.1.55-1/libyang2_2.1.55-1_amd64.deb /tmp
+RUN dpkg -i /tmp/libyang2_2.1.55-1_amd64.deb && dpkg -i /tmp/libyang2-tools_2.1.55-1_amd64.deb
 WORKDIR /work
+
 ENTRYPOINT [ "yanglint" ]

@@ -1,6 +1,7 @@
-A ubuntu:20.04 container image with yanglint and yanglib installed 
+A ubuntu:22.04 container image with yanglint and yanglib tools installed.
 
 ## Usage
+
 To check a yang module located at $(pwd)/yang/awesome-app.yang
 
 ```bash
