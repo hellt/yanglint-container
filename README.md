@@ -1,3 +1,6 @@
+**ARCHIVED. THE REPO MOVED TO https://github.com/hellt/dockerfiles/tree/main/yanglint**
+
+
 A ubuntu:22.04 container image with yanglint and yanglib tools installed.
 
 ## Usage
